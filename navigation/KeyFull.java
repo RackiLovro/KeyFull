@@ -35,7 +35,6 @@ public class KeyFull {
         // Add key listener to track input and highlight cells
         frame.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-
                 char keyChar = evt.getKeyChar();
             	
                 // Close on ESC

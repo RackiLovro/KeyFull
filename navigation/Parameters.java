@@ -1,10 +1,5 @@
 package navigation;
 
-import static navigation.Parameters.HIGHLIGHT_COLUMN;
-import static navigation.Parameters.HIGHLIGHT_ROW;
-import static navigation.Parameters.RECTANGLE_WIDTH;
-import static navigation.Parameters.SQUARE_HEIGHT;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -44,10 +39,15 @@ public class Parameters {
     
     public static final double WIDTH_OFFSET = SQUARE_WIDTH + SQUARE_WIDTH / (SUBCOLUMNS * 2);
     public static final double HEIGHT_OFFSET = SQUARE_HEIGHT - SQUARE_HEIGHT / (SUBROWS * 2);
+    
+    public static final float BIG_LETTER_OFFSET_WIDTH = (float) (SQUARE_WIDTH + SQUARE_WIDTH / (SUBCOLUMNS * 2));
+    public static final float BIG_LETTER_OFFSET_HEIGHT = (float) (SQUARE_HEIGHT - SQUARE_HEIGHT / (SUBROWS * 2));
+    //public static final double SMALL_LETTER_OFFSET_HEIGHT = SUB_SQUARE_HEIGHT * 2 + SQUARE_HEIGHT * 0.95;
 
     public static int HIGHLIGHT_ROW = -1;
     public static int HIGHLIGHT_COLUMN = -1;
     
     public static double highlight_width() { return HIGHLIGHT_COLUMN * RECTANGLE_WIDTH;}
     public static double highlight_height() { return HIGHLIGHT_ROW * SQUARE_HEIGHT;}
+    
 }
