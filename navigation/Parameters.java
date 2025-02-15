@@ -1,9 +1,9 @@
 package navigation;
 
+import static navigation.Parameters.HIGHLIGHT_COLUMN;
+import static navigation.Parameters.HIGHLIGHT_ROW;
+import static navigation.Parameters.RECTANGLE_WIDTH;
 import static navigation.Parameters.SQUARE_HEIGHT;
-import static navigation.Parameters.SQUARE_WIDTH;
-import static navigation.Parameters.SUBCOLUMNS;
-import static navigation.Parameters.SUBROWS;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,7 +16,8 @@ public class Parameters {
             "ASDFGHJK",
             "ZXCVBNM,"
         );
-    
+
+    static final String GRID_IMAGE_PATH = "grid_cache.png";
     // Grid dimensions
     public static final int COLUMNS = 52;
     public static final int ROWS = 26;
@@ -28,9 +29,6 @@ public class Parameters {
     public static final Color MAIN_COLOR = Color.GRAY;
     public static final Color SECONDARY_COLOR = Color.LIGHT_GRAY;
     public static final Color BACKGROUND_COLOR = javax.swing.UIManager.getColor("Panel.background");
-
-    // Dynamically initialized dimensions
-    
   
     public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     public static final int SCREEN_WIDTH = screenSize.width;
@@ -49,4 +47,7 @@ public class Parameters {
 
     public static int HIGHLIGHT_ROW = -1;
     public static int HIGHLIGHT_COLUMN = -1;
+    
+    public static double highlight_width() { return HIGHLIGHT_COLUMN * RECTANGLE_WIDTH;}
+    public static double highlight_height() { return HIGHLIGHT_ROW * SQUARE_HEIGHT;}
 }
