@@ -79,7 +79,7 @@ public class Mesh {
         }
     }
     
-    static void small_grid(Graphics2D g2d, int column, int row) {
+    static void small_grid(Graphics2D g2d) {
         for (double x = highlight_width(); x <= highlight_width() + RECTANGLE_WIDTH; x += SUB_SQUARE_WIDTH) {
             g2d.draw(new Line2D.Double(x, highlight_height(), x, highlight_height() + SQUARE_HEIGHT));   	
         }       
@@ -93,7 +93,7 @@ public class Mesh {
         g2d.fill(new Rectangle2D.Double(highlight_width(), highlight_height(), RECTANGLE_WIDTH, SQUARE_HEIGHT));
         g2d.setColor(MAIN_COLOR);
         
-        Mesh.small_grid(g2d, column, row);
+        Mesh.small_grid(g2d);
     }
     
     private static void big_letters(Graphics2D g2d) {
