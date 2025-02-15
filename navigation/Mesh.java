@@ -47,13 +47,13 @@ public class Mesh {
   
 	public static void smallletters(Graphics2D g2d) {
         double y = HIGHLIGHT_ROW * SQUARE_HEIGHT - SUB_SQUARE_HEIGHT * 2 + SQUARE_HEIGHT * 0.95;
+        g2d.setFont(new Font("Monospaced", Font.PLAIN, (int) SUB_SQUARE_HEIGHT));
+        g2d.setColor(MAIN_COLOR);
 
     	for(int subrow = 0; subrow < SUBROWS; subrow++) {
             double x = HIGHLIGHT_COLUMN * RECTANGLE_WIDTH;
             
     		for(int subcolumn = 0; subcolumn < SUBCOLUMNS * 2; subcolumn++) {
-                g2d.setFont(new Font("Monospaced", Font.PLAIN, (int) SUB_SQUARE_HEIGHT));
-                g2d.setColor(MAIN_COLOR);
                 g2d.drawString(String.valueOf(CELL.get(subrow).charAt(subcolumn)), (float) x, (float) y);
 
                 x += SUB_SQUARE_WIDTH;
@@ -63,6 +63,9 @@ public class Mesh {
     }
 
 	public static void bigletters(Graphics2D g2d) {
+        g2d.setFont(new Font("Monospaced", Font.PLAIN, (int) SQUARE_HEIGHT));
+        g2d.setColor(MAIN_COLOR);
+        
         // Add row and column markers
         char rowMarker = (char) ('A' - 1); // Row letter
 
@@ -70,14 +73,12 @@ public class Mesh {
             char columnMarker = 'A'; // Column letter
 
             for (int column = 1; column <= COLUMNS; column += 2) {
-                g2d.setFont(new Font("Monospaced", Font.PLAIN, (int) SQUARE_HEIGHT));
-                g2d.setColor(MAIN_COLOR);
 
                 double textX = column * SQUARE_WIDTH + SQUARE_WIDTH / (SUBCOLUMNS * 2);
                 double textY = row * SQUARE_HEIGHT - SQUARE_HEIGHT / (SUBROWS * 2);
 
-                g2d.drawString("" + rowMarker, (float) textX, (float) textY);
-                g2d.drawString("" + columnMarker++, (float) (textX - SQUARE_WIDTH), (float) textY);
+                g2d.drawString(String.valueOf(rowMarker), (float) textX, (float) textY);
+                g2d.drawString(String.valueOf(columnMarker++), (float) (textX - SQUARE_WIDTH), (float) textY);
             }
             rowMarker++;
         }
@@ -94,30 +95,34 @@ public class Mesh {
     }
     
     static void grid(Graphics2D g2d) {
+        g2d.setColor(MAIN_COLOR);
+        
         // Draw vertical lines
-        for (int column = 0; column <= COLUMNS * SUBCOLUMNS; column++) {
-            double x = column * SUB_SQUARE_WIDTH;
+        for (int column = 0; column <= COLUMNS / 2; column++) {
+            double x = column * SQUARE_WIDTH * 2;
             double y = 0;
-            
-        	Mesh.verticalLine(g2d, color(column % (SUBCOLUMNS * 2) == 0), SCREEN_HEIGHT, x, y);
+
+            g2d.draw(new Line2D.Double(x, y, x, y + SCREEN_HEIGHT));
         }
 
         // Draw horizontal lines
-        for (int row = 0; row <= ROWS * SUBROWS; row++) {
+        for (int row = 0; row <= ROWS; row++) {
             double x = 0;
             double y = row * SQUARE_HEIGHT;
             
-        	Mesh.horizontalLine(g2d, MAIN_COLOR, SCREEN_WIDTH, x, y);
+            g2d.draw(new Line2D.Double(x, y, x + SCREEN_WIDTH, y));
         }		
 	}
     
     static void small_grid(Graphics2D g2d, int column, int row) {
+        g2d.setColor(MAIN_COLOR);
+        
         double x = HIGHLIGHT_COLUMN * RECTANGLE_WIDTH;
         double y = HIGHLIGHT_ROW * SQUARE_HEIGHT;
         
         // Draw vertical lines
         for (int cellcolumn = column * 2 * SUBCOLUMNS; cellcolumn <= (column + 1) *  2 * SUBCOLUMNS; cellcolumn++) {
-        	Mesh.verticalLine(g2d, MAIN_COLOR, SQUARE_HEIGHT, x, y);
+            g2d.draw(new Line2D.Double(x, y, x, y + SQUARE_HEIGHT));
             x += SUB_SQUARE_WIDTH;
         }
 
@@ -126,22 +131,8 @@ public class Mesh {
         
         // Draw horizontal lines
         for (int cellrow = row * SUBROWS; cellrow <= (row + 1) * SUBROWS; cellrow++) {
-        	Mesh.horizontalLine(g2d, MAIN_COLOR, RECTANGLE_WIDTH, x, y);
+            g2d.draw(new Line2D.Double(x, y, x + RECTANGLE_WIDTH, y));
         	y += SUB_SQUARE_HEIGHT;
         }
-    }
-    
-    static void verticalLine(Graphics2D g2d, Color color, double length, double x, double y) {
-        g2d.setColor(color);
-        g2d.draw(new Line2D.Double(x, y, x, y + length));
-    }
-    
-    static void horizontalLine(Graphics2D g2d, Color color, double length, double x, double y) {
-        g2d.setColor(color);
-        g2d.draw(new Line2D.Double(x, y, x + length, y));
-    }
-    
-    private static Color color(boolean condition) {
-    	return condition ? MAIN_COLOR : BACKGROUND_COLOR;
     }
 }
