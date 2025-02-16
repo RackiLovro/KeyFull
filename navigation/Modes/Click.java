@@ -6,8 +6,8 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 
-public class Move {
-	public static void move(char target) {
+public class Click {
+	public static void click(char target) {
         try {
 	        double x = highlight_width();
 	        double y = highlight_height() - SUB_SQUARE_HEIGHT * 2 + SQUARE_HEIGHT * 0.95;

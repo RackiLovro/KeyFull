@@ -1,20 +1,21 @@
-package navigation.ModeAdapters;
+package navigation.Adapters;
 
 import javax.swing.JFrame;
 
 import navigation.Mesh;
-import navigation.Modes.Move;
+import navigation.Modes.Drag;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import static navigation.Parameters.*;
 
-public class ClickModeAdapter extends KeyAdapter {
+public class DragMode extends KeyAdapter {
     private final JFrame frame;
     private final StringBuilder keySequence = new StringBuilder();
+    private char start = '\0';
 
-    public ClickModeAdapter(JFrame frame) {
+    public DragMode(JFrame frame) {
         this.frame = frame;
     }
 
@@ -34,10 +35,18 @@ public class ClickModeAdapter extends KeyAdapter {
             }
 
             if (keySequence.length() == 3) {
-                char target = keySequence.charAt(2);
-                keySequence.setLength(0);
-                frame.dispose();
-                Move.move(target);
+                if (start == '\0') {
+                    start = keySequence.charAt(2);
+                    keySequence.setLength(0);
+                    HIGHLIGHT_ROW = -1;
+                    HIGHLIGHT_COLUMN = -1;
+                    Mesh.repaint_mesh();
+                } else {
+                    char end = keySequence.charAt(2);
+                    keySequence.setLength(0);
+                    frame.dispose();
+                    Drag.drag(start, end);
+                }
             }
         }
     }

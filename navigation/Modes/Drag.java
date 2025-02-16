@@ -7,12 +7,12 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 
 public class Drag {
-    public static void select(char start, char end) {
+    public static void drag(char start, char end) {
         try {
             Robot robot = new Robot();
 
             // Move to start position
-            Move.move(start);
+            Click.click(start);
             robot.delay(200); // Allow UI to settle
 
             // Press and hold mouse button
@@ -25,7 +25,7 @@ public class Drag {
             robot.delay(50);
 
             // Move to end position
-            Move.move(end);
+            Click.click(end);
             robot.delay(200); // Give time for drag to complete
 
             // Release mouse button
