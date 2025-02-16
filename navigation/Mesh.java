@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 import static navigation.Parameters.*;
 
 public class Mesh {
-    JPanel gridPanel;
+    static JPanel gridPanel;
 
     public Mesh(JFrame frame) {
         // Load or generate the grid image
@@ -30,13 +30,17 @@ public class Mesh {
 
                 // Draw dynamic elements like highlights
                 if (HIGHLIGHT_ROW >= 0 && HIGHLIGHT_COLUMN >= 0) {
-                    Mesh.erase_cell(g2d, HIGHLIGHT_COLUMN, HIGHLIGHT_ROW);
+                    Mesh.erase_cell(g2d);
                     Mesh.small_letters(g2d);
                 }
             }
         };
 
         gridPanel.setOpaque(false);
+    }
+    
+    public static void repaint_mesh() {
+    	Mesh.gridPanel.repaint();
     }
 
     private static BufferedImage cache_grid() {
@@ -88,7 +92,7 @@ public class Mesh {
         }
     }
     
-    public static void erase_cell(Graphics2D g2d, int column, int row) {
+    public static void erase_cell(Graphics2D g2d) {
         g2d.setColor(BACKGROUND_COLOR);
         g2d.fill(new Rectangle2D.Double(highlight_width(), highlight_height(), RECTANGLE_WIDTH, SQUARE_HEIGHT));
         g2d.setColor(MAIN_COLOR);
@@ -101,8 +105,7 @@ public class Mesh {
 
         char row_letter = (char) ('A' - 1);
         for (float y = BIG_LETTER_OFFSET_HEIGHT; y <= SCREEN_HEIGHT; y += BIG_LETTER_OFFSET_WIDTH) {
-            char column_letter = 'A';
-            
+            char column_letter = 'A';          
             for (float x = BIG_LETTER_OFFSET_WIDTH; x <= SCREEN_WIDTH; x += BIG_LETTER_OFFSET_WIDTH) {
                 g2d.drawString(String.valueOf(row_letter++), x, y);
                 g2d.drawString(String.valueOf(column_letter++), (float) (x - SQUARE_WIDTH), y);
@@ -111,12 +114,11 @@ public class Mesh {
     }
     
 	public static void small_letters(Graphics2D g2d) {
-        float y = (float)(highlight_height() - SUB_SQUARE_HEIGHT * 2 + SQUARE_HEIGHT * 0.95);
         g2d.setFont(new Font("Monospaced", Font.PLAIN, (int) SUB_SQUARE_HEIGHT));
-
+        
+        float y = (float)(highlight_height() - SUB_SQUARE_HEIGHT * 2 + SQUARE_HEIGHT * 0.95);
     	for(int subrow = 0; subrow < SUBROWS; subrow++) {
             double x = highlight_width();
-            
     		for(int subcolumn = 0; subcolumn < SUBCOLUMNS * 2; subcolumn++) {
                 g2d.drawString(String.valueOf(CELL.get(subrow).charAt(subcolumn)), (float) x, y);
 
