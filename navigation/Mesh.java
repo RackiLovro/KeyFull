@@ -45,11 +45,13 @@ public class Mesh {
 
     private static BufferedImage cache_grid() {
         File file = new File(GRID_IMAGE_PATH);
-
-        try {
-            return ImageIO.read(file); // Load cached grid
-        } catch (Exception e) {
-            e.printStackTrace();
+        
+        if (file.exists() == true) {
+            try {
+                return ImageIO.read(file); // Load cached grid
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         // Generate and save the grid if no cache exists
@@ -75,11 +77,17 @@ public class Mesh {
     }
 
     private static void big_grid(Graphics2D g2d) {
-        for (int x = 0; x <= SCREEN_WIDTH; x *= SQUARE_WIDTH * 2) {
+        g2d.setColor(MAIN_COLOR);
+        
+        // Draw vertical lines
+        for (double x = 0; x <= SCREEN_WIDTH; x += SQUARE_WIDTH * 2) {
             g2d.draw(new Line2D.Double(x, 0, x, SCREEN_HEIGHT));
         }
-        for (int y = 0; y <= SCREEN_HEIGHT; y *= SQUARE_HEIGHT) {
+
+        // Draw horizontal lines
+        for (double y = 0; y <= SCREEN_HEIGHT; y += SQUARE_HEIGHT) {
             g2d.draw(new Line2D.Double(0, y, SCREEN_WIDTH, y));
+        
         }
     }
     
@@ -102,14 +110,23 @@ public class Mesh {
     
     private static void big_letters(Graphics2D g2d) {
         g2d.setFont(new Font("Monospaced", Font.PLAIN, (int) SQUARE_HEIGHT));
+        g2d.setColor(MAIN_COLOR);
+        
+        // Add row and column markers
+        char rowMarker = (char) ('A' - 1); // Row letter
 
-        char row_letter = (char) ('A' - 1);
-        for (float y = BIG_LETTER_OFFSET_HEIGHT; y <= SCREEN_HEIGHT; y += BIG_LETTER_OFFSET_WIDTH) {
-            char column_letter = 'A';          
-            for (float x = BIG_LETTER_OFFSET_WIDTH; x <= SCREEN_WIDTH; x += BIG_LETTER_OFFSET_WIDTH) {
-                g2d.drawString(String.valueOf(row_letter++), x, y);
-                g2d.drawString(String.valueOf(column_letter++), (float) (x - SQUARE_WIDTH), y);
+        for (int row = 0; row <= ROWS; row++) {
+            char columnMarker = 'A'; // Column letter
+
+            for (int column = 1; column <= COLUMNS; column += 2) {
+
+                double textX = column * SQUARE_WIDTH + SQUARE_WIDTH / (SUBCOLUMNS * 2);
+                double textY = row * SQUARE_HEIGHT - SQUARE_HEIGHT / (SUBROWS * 2);
+
+                g2d.drawString(String.valueOf(rowMarker), (float) textX, (float) textY);
+                g2d.drawString(String.valueOf(columnMarker++), (float) (textX - SQUARE_WIDTH), (float) textY);
             }
+            rowMarker++;
         }
     }
     
