@@ -1,13 +1,10 @@
 package navigation.Adapters;
 
 import javax.swing.JFrame;
-
 import navigation.Mesh;
 import navigation.Modes.Click;
-
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
 import static navigation.Parameters.*;
 
 public class ClickMode extends KeyAdapter {
@@ -36,8 +33,10 @@ public class ClickMode extends KeyAdapter {
             if (keySequence.length() == 3) {
                 char target = keySequence.charAt(2);
                 keySequence.setLength(0);
+                int frameX = frame.getX();  // Capture frame's X offset
+                int frameY = frame.getY();  // Capture frame's Y offset
                 frame.dispose();
-                Click.click(target);
+                Click.click(target, frameX, frameY);
             }
         }
     }

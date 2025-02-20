@@ -37,7 +37,7 @@ public class DoubleClickMode extends KeyAdapter {
                 char target = keySequence.charAt(2);
                 keySequence.setLength(0);
                 frame.dispose();
-                Click.click(target);
+                //Click.click(target);
             }
         }
     }

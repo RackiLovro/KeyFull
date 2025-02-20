@@ -10,7 +10,15 @@ import javax.imageio.ImageIO;
 import static navigation.Parameters.*;
 
 public class Mesh {
-    static JPanel gridPanel;
+    private static JPanel gridPanel;
+
+    public static JPanel get_grid_panel() {
+    	return Mesh.gridPanel;
+    }
+  
+    public static void repaint_mesh() {
+    	Mesh.gridPanel.repaint();
+    }
 
     public Mesh(JFrame frame) {
         // Load or generate the grid image
@@ -37,10 +45,6 @@ public class Mesh {
         };
 
         gridPanel.setOpaque(false);
-    }
-    
-    public static void repaint_mesh() {
-    	Mesh.gridPanel.repaint();
     }
 
     private static BufferedImage cache_grid() {
@@ -78,13 +82,10 @@ public class Mesh {
 
     private static void big_grid(Graphics2D g2d) {
         g2d.setColor(MAIN_COLOR);
-        
-        // Draw vertical lines
+
         for (double x = 0; x <= SCREEN_WIDTH; x += SQUARE_WIDTH * 2) {
             g2d.draw(new Line2D.Double(x, 0, x, SCREEN_HEIGHT));
         }
-
-        // Draw horizontal lines
         for (double y = 0; y <= SCREEN_HEIGHT; y += SQUARE_HEIGHT) {
             g2d.draw(new Line2D.Double(0, y, SCREEN_WIDTH, y));
         
@@ -113,20 +114,20 @@ public class Mesh {
         g2d.setColor(MAIN_COLOR);
         
         // Add row and column markers
-        char rowMarker = (char) ('A' - 1); // Row letter
+        char row_letter = (char) ('A' - 1);
 
         for (int row = 0; row <= ROWS; row++) {
-            char columnMarker = 'A'; // Column letter
+            char column_letter = 'A';
 
             for (int column = 1; column <= COLUMNS; column += 2) {
 
-                double textX = column * SQUARE_WIDTH + SQUARE_WIDTH / (SUBCOLUMNS * 2);
-                double textY = row * SQUARE_HEIGHT - SQUARE_HEIGHT / (SUBROWS * 2);
+                double x = column * SQUARE_WIDTH + SQUARE_WIDTH / (SUBCOLUMNS * 2);
+                double y = row * SQUARE_HEIGHT - SQUARE_HEIGHT / (SUBROWS * 2);
 
-                g2d.drawString(String.valueOf(rowMarker), (float) textX, (float) textY);
-                g2d.drawString(String.valueOf(columnMarker++), (float) (textX - SQUARE_WIDTH), (float) textY);
+                g2d.drawString(String.valueOf(row_letter), (float) x, (float) y);
+                g2d.drawString(String.valueOf(column_letter++), (float) (x - SQUARE_WIDTH), (float) y);
             }
-            rowMarker++;
+            row_letter++;
         }
     }
     

@@ -12,7 +12,7 @@ public class Drag {
             Robot robot = new Robot();
 
             // Move to start position
-            Click.click(start);
+            //Click.click(start);
             robot.delay(200); // Allow UI to settle
 
             // Press and hold mouse button
@@ -25,7 +25,7 @@ public class Drag {
             robot.delay(50);
 
             // Move to end position
-            Click.click(end);
+            //Click.click(end);
             robot.delay(200); // Give time for drag to complete
 
             // Release mouse button
