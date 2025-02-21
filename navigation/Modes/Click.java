@@ -13,14 +13,14 @@ public class Click {
 
             for (String row : CELL) {
                 if (row.indexOf(target) != -1) {
-                    x += row.indexOf(target) * SUB_SQUARE_WIDTH + SUB_SQUARE_WIDTH / 2;
-                    y += CELL.indexOf(row) * SUB_SQUARE_HEIGHT + SUB_SQUARE_HEIGHT / 2;
+                    x += row.indexOf(target) * SUB_SQUARE_WIDTH;
+                    y += CELL.indexOf(row) * SUB_SQUARE_HEIGHT;
                 }
             }
 
             // Adjust for multi-monitor setup
-            x += offsetX;
-            y += offsetY;
+            x += offsetX + SUB_SQUARE_WIDTH / 2;
+            y += offsetY - SUB_SQUARE_HEIGHT / 2;
 
             // Create a Robot instance
             Robot robot = new Robot();
