@@ -86,7 +86,7 @@ public class KeyFull {
         new Mesh(frame);
         
         frame.add(Mesh.get_grid_panel());
-        frame.addKeyListener(Mode.getKeyAdapter(args.length > 0 ? args[0] : "double_click", frame));
+        frame.addKeyListener(Mode.getKeyAdapter(args.length > 0 ? args[0] : "click", frame));
         frame.setVisible(true);
     }
 
