@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 import navigation.Mesh;
 import navigation.Modes.Click;
+import navigation.Modes.DoubleClick;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -37,7 +38,7 @@ public class DoubleClickMode extends KeyAdapter {
                 char target = keySequence.charAt(2);
                 keySequence.setLength(0);
                 frame.dispose();
-                Click.click(target);
+                DoubleClick.double_click(target);
             }
         }
     }

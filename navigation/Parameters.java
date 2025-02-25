@@ -2,6 +2,7 @@ package navigation;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.List;
 
@@ -24,6 +25,8 @@ public class Parameters {
     public static final Color MAIN_COLOR = Color.GRAY;
     public static final Color SECONDARY_COLOR = Color.LIGHT_GRAY;
     public static final Color BACKGROUND_COLOR = javax.swing.UIManager.getColor("Panel.background");
+    
+    public static final Font LABEL_FONT = new Font("Arial", Font.BOLD, 100);
   
     public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     public static final int SCREEN_WIDTH = screenSize.width;
