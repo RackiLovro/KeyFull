@@ -76,8 +76,15 @@ public class KeyFull {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(MAIN_COLOR);
         g2d.setFont(LABEL_FONT);
-        g2d.drawString(String.valueOf(screenIndex + 1), width / 2, height / 2);
-        g2d.dispose();
+        FontMetrics metrics = g2d.getFontMetrics();
+        String text = String.valueOf(screenIndex + 1);
+        int textWidth = metrics.stringWidth(text);
+        int textHeight = metrics.getAscent(); // Get the height above the baseline
+
+        int x = (width - textWidth) / 2;
+        int y = (height + textHeight) / 2; // Center using ascent
+
+        g2d.drawString(text, x, y);
 
         try {
             ImageIO.write(image, "png", file);
@@ -126,24 +133,29 @@ public class KeyFull {
     private static void create_mesh(int selectedScreen, String[] args) {
         GraphicsDevice screen = screens[selectedScreen];
         GraphicsConfiguration gc = screen.getDefaultConfiguration();
-        Rectangle bounds = gc.getBounds();
+        Rectangle bounds = gc.getBounds(); // Used for JFrame positioning
 
-        // Create Parameters instance for selected screen
-        Parameters params = new Parameters(bounds);
+        int screenWidth = screen.getDisplayMode().getWidth();
+        int screenHeight = screen.getDisplayMode().getHeight();
+        Rectangle screenSize = new Rectangle(0, 0, screenWidth, screenHeight); // Used for Parameters
+
+        // Create Parameters instance using full screen size
+        Parameters params = new Parameters(screenSize);
 
         JFrame frame = new JFrame(gc);
         frame.setTitle("Keyfull");
         frame.setUndecorated(true);
-        frame.setBounds(bounds.x, bounds.y, bounds.width, bounds.height - 35);
+        frame.setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
         frame.setOpacity(0.5f);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        new Mesh(frame, params); // Pass parameters to Mesh
+        new Mesh(frame, params); // Pass full screen size parameters
 
         frame.add(Mesh.get_grid_panel());
         frame.addKeyListener(Mode.getKeyAdapter(args.length > 0 ? args[0] : "click", frame, params));
         frame.setVisible(true);
     }
+
 
 
     private static void close_all_windows() {
