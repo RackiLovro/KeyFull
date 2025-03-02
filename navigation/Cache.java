@@ -8,8 +8,10 @@ import static navigation.Parameters.*;
 public class Cache {
 	private static File file;
 	private static BufferedImage image;
+	private static Parameters params;
 	
-	public Cache(String path) {
+	public Cache(String path, Parameters parameters) {
+		Cache.params = parameters;
 		Cache.file = new File(path);
 		Cache.image = this.load();
 	}
@@ -22,7 +24,7 @@ public class Cache {
                 e.printStackTrace();
             }
         }
-        return new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        return new BufferedImage(params.SCREEN_WIDTH, params.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     }
     
     public void save(BufferedImage image) {

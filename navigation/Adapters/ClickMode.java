@@ -2,17 +2,19 @@ package navigation.Adapters;
 
 import javax.swing.JFrame;
 import navigation.Mesh;
+import navigation.Parameters;
 import navigation.Modes.Click;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import static navigation.Parameters.*;
 
 public class ClickMode extends KeyAdapter {
     private final JFrame frame;
     private final StringBuilder keySequence = new StringBuilder();
+    private Parameters params;
 
-    public ClickMode(JFrame frame) {
+    public ClickMode(JFrame frame, Parameters parameters) {
         this.frame = frame;
+        this.params = parameters;
     }
 
     @Override
@@ -25,8 +27,8 @@ public class ClickMode extends KeyAdapter {
             keySequence.append(Character.toUpperCase(keyChar));
 
             if (keySequence.length() == 2) {
-                HIGHLIGHT_ROW = keySequence.charAt(1) - 'A';
-                HIGHLIGHT_COLUMN = keySequence.charAt(0) - 'A';
+                params.HIGHLIGHT_ROW = keySequence.charAt(1) - 'A';
+                params.HIGHLIGHT_COLUMN = keySequence.charAt(0) - 'A';
                 Mesh.repaint_mesh();
             }
 
@@ -36,7 +38,7 @@ public class ClickMode extends KeyAdapter {
                 int frameX = frame.getX();  // Capture frame's X offset
                 int frameY = frame.getY();  // Capture frame's Y offset
                 frame.dispose();
-                Click.click(target, frameX, frameY);
+                Click.click(target, frameX, frameY, this.params);
             }
         }
     }

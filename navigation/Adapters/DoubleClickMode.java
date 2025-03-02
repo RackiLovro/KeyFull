@@ -3,20 +3,20 @@ package navigation.Adapters;
 import javax.swing.JFrame;
 
 import navigation.Mesh;
-import navigation.Modes.Click;
+import navigation.Parameters;
 import navigation.Modes.DoubleClick;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import static navigation.Parameters.*;
-
 public class DoubleClickMode extends KeyAdapter {
     private final JFrame frame;
     private final StringBuilder keySequence = new StringBuilder();
+    private Parameters params;
 
-    public DoubleClickMode(JFrame frame) {
+    public DoubleClickMode(JFrame frame, Parameters parameters) {
         this.frame = frame;
+        this.params = parameters;
     }
 
     @Override
@@ -29,8 +29,8 @@ public class DoubleClickMode extends KeyAdapter {
             keySequence.append(Character.toUpperCase(keyChar));
 
             if (keySequence.length() == 2) {
-                HIGHLIGHT_ROW = keySequence.charAt(1) - 'A';
-                HIGHLIGHT_COLUMN = keySequence.charAt(0) - 'A';
+                params.HIGHLIGHT_ROW = keySequence.charAt(1) - 'A';
+                params.HIGHLIGHT_COLUMN = keySequence.charAt(0) - 'A';
                 Mesh.repaint_mesh();
             }
 
@@ -38,7 +38,7 @@ public class DoubleClickMode extends KeyAdapter {
                 char target = keySequence.charAt(2);
                 keySequence.setLength(0);
                 frame.dispose();
-                DoubleClick.double_click(target);
+                DoubleClick.double_click(target, params);
             }
         }
     }

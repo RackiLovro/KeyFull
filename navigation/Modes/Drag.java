@@ -1,19 +1,19 @@
 package navigation.Modes;
 
 import static navigation.Parameters.CELL;
-import static navigation.Parameters.SUB_SQUARE_HEIGHT;
-import static navigation.Parameters.SUB_SQUARE_WIDTH;
 
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
+
+import navigation.Parameters;
 import navigation.Adapters.DragCoordinates;  // Import DragCoordinates class
 
 public class Drag {
-    public static void drag(DragCoordinates dragCoordinates) {
+    public static void drag(DragCoordinates dragCoordinates, Parameters params) {
         try {
-            int[] startCoords = calculateCoordinates(dragCoordinates.getStart());
-            int[] endCoords = calculateCoordinates(dragCoordinates.getEnd());
+            int[] startCoords = calculateCoordinates(dragCoordinates.getStart(), params);
+            int[] endCoords = calculateCoordinates(dragCoordinates.getEnd(), params);
             
             // Create a Robot instance
             Robot robot = new Robot();
@@ -30,7 +30,7 @@ public class Drag {
         }
     }
     
-    private static int[] calculateCoordinates(int[] position) {
+    private static int[] calculateCoordinates(int[] position, Parameters params) {
         int row = position[0];
         int col = position[1];
         char target = (char) position[2];
@@ -47,8 +47,8 @@ public class Drag {
             }
         }
 
-        int x = (int) (frameX + (col * SUB_SQUARE_WIDTH) + SUB_SQUARE_WIDTH / 2);
-        int y = (int) (frameY + (row * SUB_SQUARE_HEIGHT) - SUB_SQUARE_HEIGHT / 2);
+        int x = (int) (frameX + (col * params.SUB_SQUARE_WIDTH) + params.SUB_SQUARE_WIDTH / 2);
+        int y = (int) (frameY + (row * params.SUB_SQUARE_HEIGHT) - params.SUB_SQUARE_HEIGHT / 2);
         return new int[]{x, y};
     }
 }

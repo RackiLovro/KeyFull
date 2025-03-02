@@ -128,6 +128,9 @@ public class KeyFull {
         GraphicsConfiguration gc = screen.getDefaultConfiguration();
         Rectangle bounds = gc.getBounds();
 
+        // Create Parameters instance for selected screen
+        Parameters params = new Parameters(bounds);
+
         JFrame frame = new JFrame(gc);
         frame.setTitle("Keyfull");
         frame.setUndecorated(true);
@@ -135,12 +138,13 @@ public class KeyFull {
         frame.setOpacity(0.5f);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        new Mesh(frame);
+        new Mesh(frame, params); // Pass parameters to Mesh
 
         frame.add(Mesh.get_grid_panel());
-        frame.addKeyListener(Mode.getKeyAdapter(args.length > 0 ? args[0] : "click", frame));
+        frame.addKeyListener(Mode.getKeyAdapter(args.length > 0 ? args[0] : "click", frame, params));
         frame.setVisible(true);
     }
+
 
     private static void close_all_windows() {
         for (JFrame frame : frames) {

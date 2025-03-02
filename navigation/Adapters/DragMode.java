@@ -2,20 +2,21 @@ package navigation.Adapters;
 
 import javax.swing.JFrame;
 import navigation.Mesh;
+import navigation.Parameters;
 import navigation.Modes.Drag;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import static navigation.Parameters.*;
-
 public class DragMode extends KeyAdapter {
     private final JFrame frame;
     private final StringBuilder keySequence = new StringBuilder();
     private final DragCoordinates dragCoordinates = new DragCoordinates();
+    private Parameters params;
 
-    public DragMode(JFrame frame) {
+    public DragMode(JFrame frame, Parameters parameters) {
         this.frame = frame;
+        this.params = parameters;
     }
 
     @Override
@@ -28,23 +29,23 @@ public class DragMode extends KeyAdapter {
             keySequence.append(Character.toUpperCase(keyChar));
 
             if (keySequence.length() == 2) {
-                HIGHLIGHT_ROW = keySequence.charAt(1) - 'A';
-                HIGHLIGHT_COLUMN = keySequence.charAt(0) - 'A';
+                params.HIGHLIGHT_ROW = keySequence.charAt(1) - 'A';
+                params.HIGHLIGHT_COLUMN = keySequence.charAt(0) - 'A';
                 Mesh.repaint_mesh();
             }
 
             if (keySequence.length() == 3) {
                 if (dragCoordinates.isStartEmpty()) {
-                    dragCoordinates.setStart(HIGHLIGHT_ROW, HIGHLIGHT_COLUMN, keySequence.charAt(2));
+                    dragCoordinates.setStart(params.HIGHLIGHT_ROW, params.HIGHLIGHT_COLUMN, keySequence.charAt(2));
                     keySequence.setLength(0);
-                    HIGHLIGHT_ROW = -1;
-                    HIGHLIGHT_COLUMN = -1;
+                    params.HIGHLIGHT_ROW = -1;
+                    params.HIGHLIGHT_COLUMN = -1;
                     Mesh.repaint_mesh();
                 } else {
-                    dragCoordinates.setEnd(HIGHLIGHT_ROW, HIGHLIGHT_COLUMN, keySequence.charAt(2));
+                    dragCoordinates.setEnd(params.HIGHLIGHT_ROW, params.HIGHLIGHT_COLUMN, keySequence.charAt(2));
                     keySequence.setLength(0);      
                     frame.dispose();
-                    Drag.drag(dragCoordinates);
+                    Drag.drag(dragCoordinates, params);
                 }
             }
         }
