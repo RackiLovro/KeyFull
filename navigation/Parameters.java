@@ -10,25 +10,18 @@ public class Parameters {
             "ZXCVBNM,"
     );
 
-    static final String CACHE_DIRECTORY = "cache";
-    static final String GRID_IMAGE_PATH = "grid_cache.png";
+    static final String CACHE_DIRECTORY = "./cache";
 
-    // Grid dimensions
     public static final int COLUMNS = 52;
     public static final int ROWS = 26;
     public static final int SUBCOLUMNS = 4;
     public static final int SUBROWS = 3;
 
-    // Colors
     public static final Color MAIN_COLOR = Color.GRAY;
     public static final Color SECONDARY_COLOR = Color.LIGHT_GRAY;
     public static final Color BACKGROUND_COLOR = javax.swing.UIManager.getColor("Panel.background");
-
+    
     public static final Font LABEL_FONT = new Font("Arial", Font.BOLD, 100);
-
-    // Screen-dependent properties
-    public final int SCREEN_WIDTH;
-    public final int SCREEN_HEIGHT;
 
     public final double SQUARE_HEIGHT;
     public final double SUB_SQUARE_HEIGHT;
@@ -40,7 +33,9 @@ public class Parameters {
     public final float BIG_LETTER_OFFSET_WIDTH;
     public final float BIG_LETTER_OFFSET_HEIGHT;
 
-    // Highlighting
+    public final int SCREEN_WIDTH;
+    public final int SCREEN_HEIGHT;
+    
     public int HIGHLIGHT_ROW = -1;
     public int HIGHLIGHT_COLUMN = -1;
 

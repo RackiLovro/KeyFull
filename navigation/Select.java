@@ -1,11 +1,9 @@
 package navigation;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -49,13 +47,6 @@ public class Select {
         }
     }
 
-    private static void configure_frame(JFrame frame) {
-        frame.setUndecorated(true);
-        frame.setVisible(true);
-        frame.setOpacity(0.5f);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }
-    
     private static void initialize() {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         screens = ge.getScreenDevices();
@@ -73,38 +64,17 @@ public class Select {
     }
 
     private static BufferedImage load_selection_image(int screenIndex, int width, int height) {
-        String selectionImagePath = "select_cache_" + screenIndex + ".png";
-        File file = new File(selectionImagePath);
-
-        if (file.exists()) {
-            try {
-                return ImageIO.read(file);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        String text = String.valueOf(screenIndex + 1);
-        
-        Graphics2D g2d = image.createGraphics();
-        g2d.setFont(LABEL_FONT);
-        FontMetrics metrics = g2d.getFontMetrics();
-        
-        int x = (width - metrics.stringWidth(text)) / 2;
-        int y = (height - metrics.getHeight()) / 2 + metrics.getAscent();
-        
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setColor(MAIN_COLOR);
-        g2d.drawString(text, x, y);
-
-        try {
-            ImageIO.write(image, "png", file);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return image;
+        return Cache.loadOrCreateImage(CACHE_DIRECTORY, "select_" + screenIndex + ".png", width, height, (g2d, w, h) -> {
+            String text = String.valueOf(screenIndex + 1);
+            g2d.setFont(LABEL_FONT);
+            FontMetrics metrics = g2d.getFontMetrics();
+            
+            int x = (w - metrics.stringWidth(text)) / 2;
+            int y = (h - metrics.getHeight()) / 2 + metrics.getAscent();
+            
+            g2d.setColor(MAIN_COLOR);
+            g2d.drawString(text, x, y);
+        });
     }
 
     private static JFrame create_selection(GraphicsDevice screen, int screenIndex) {
@@ -153,5 +123,12 @@ public class Select {
         frame.setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
         frame.add(Mesh.get_grid_panel());
         frame.addKeyListener(Mode.getKeyAdapter(args.length > 0 ? args[0] : "click", frame, params));
+    }
+    
+    private static void configure_frame(JFrame frame) {
+        frame.setUndecorated(true);
+        frame.setVisible(true);
+        frame.setOpacity(0.5f);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 }

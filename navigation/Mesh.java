@@ -37,6 +37,7 @@ public class Mesh {
 
                 if (params.HIGHLIGHT_ROW >= 0 && params.HIGHLIGHT_COLUMN >= 0) {
                     Mesh.erase_cell(g2d);
+                    Mesh.small_grid(g2d);
                     Mesh.small_letters(g2d);
                 }
             }
@@ -45,49 +46,15 @@ public class Mesh {
         gridPanel.setOpaque(false);
     }
 
-    private static String getCacheFilePath() {
-        return CACHE_DIRECTORY + File.separator + params.SCREEN_WIDTH + "_" + params.SCREEN_HEIGHT + "_cache.png";
-    }
-
     private static BufferedImage cache_grid() {
-        BufferedImage image = new BufferedImage(params.SCREEN_WIDTH, params.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
-        String filePath = getCacheFilePath();
-        File cacheDir = new File(CACHE_DIRECTORY);
-        File file = new File(filePath);
-        Graphics2D g2d = image.createGraphics();
-        
-        if (cacheDir.exists() == false) {
-            cacheDir.mkdirs();
-        }
-
-        if (file.exists()) {
-            try {
-                return ImageIO.read(file);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setColor(MAIN_COLOR);
-
-        big_grid(g2d);
-        big_letters(g2d);
-        
-        g2d.dispose();
-        
-        try {
-            ImageIO.write(image, "png", file);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return image;
+        return Cache.loadOrCreateImage(CACHE_DIRECTORY, File.separator + params.SCREEN_WIDTH + "_" + params.SCREEN_HEIGHT + ".png", params.SCREEN_WIDTH, params.SCREEN_HEIGHT, (g2d, w, h) -> {
+            g2d.setColor(MAIN_COLOR);
+            big_grid(g2d);
+            big_letters(g2d);
+        });
     }
 
     private static void big_grid(Graphics2D g2d) {
-        g2d.setColor(MAIN_COLOR);
-
         for (double x = 0; x <= params.SCREEN_WIDTH; x += params.SQUARE_WIDTH * 2) {
             g2d.draw(new Line2D.Double(x, 0, x, params.SCREEN_HEIGHT));
         }
@@ -109,8 +76,6 @@ public class Mesh {
         g2d.setColor(BACKGROUND_COLOR);
         g2d.fill(new Rectangle2D.Double(params.highlight_width(), params.highlight_height(), params.RECTANGLE_WIDTH, params.SQUARE_HEIGHT));
         g2d.setColor(MAIN_COLOR);
-        
-        Mesh.small_grid(g2d);
     }
     
     private static void big_letters(Graphics2D g2d) {

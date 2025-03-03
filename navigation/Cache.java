@@ -1,41 +1,45 @@
 package navigation;
 
-import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import static navigation.Parameters.*;
+import javax.imageio.ImageIO;
 
 public class Cache {
-	private static File file;
-	private static BufferedImage image;
-	private static Parameters params;
-	
-	public Cache(String path, Parameters parameters) {
-		Cache.params = parameters;
-		Cache.file = new File(path);
-		Cache.image = this.load();
-	}
-	
-    private BufferedImage load() {
-        if (Cache.file.exists()) {
+    public static BufferedImage loadOrCreateImage(String cachePath, String fileName, int width, int height, ImageRenderer renderer) {
+        File cacheDir = new File(cachePath);
+        if (!cacheDir.exists()) {
+            cacheDir.mkdirs();
+        }
+
+        File file = new File(cacheDir, fileName);
+
+        if (file.exists()) {
             try {
-                return ImageIO.read(Cache.file);
+                return ImageIO.read(file);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return new BufferedImage(params.SCREEN_WIDTH, params.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
-    }
-    
-    public void save(BufferedImage image) {
-    	try {
-            ImageIO.write(image, "png", Cache.file);
+
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        renderer.render(g2d, width, height);
+        g2d.dispose();
+
+        try {
+            ImageIO.write(image, "png", file);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return image;
     }
-    
-    public BufferedImage getImage() {
-    	return Cache.image;
+
+    @FunctionalInterface
+    public interface ImageRenderer {
+        void render(Graphics2D g2d, int width, int height);
     }
 }
