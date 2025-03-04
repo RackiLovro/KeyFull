@@ -1,0 +1,48 @@
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+*.png
+
+# Virtual machine crash logs
+hs_err_pid*
+replay_pid*
+
+# Maven build output
+/target/
+
+# Eclipse specific files
+.project
+.classpath
+.settings/
+
+# IntelliJ IDEA specific files
+.idea/
+
+# VSCode specific files
+.vscode/
+
+# Maven wrapper files
+.mvn/
+mvnw
+mvnw.cmd
+
+# Generated files by build tools
+*.iml
+

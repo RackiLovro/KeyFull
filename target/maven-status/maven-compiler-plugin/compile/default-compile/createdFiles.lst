@@ -1,6 +1,7 @@
 com/keyfull/Select.class
 com/keyfull/modes/DoubleClick.class
 com/keyfull/adapters/DoubleClickMode.class
+com/keyfull/X11OverlayUtil.class
 com/keyfull/Mode.class
 com/keyfull/adapters/DragMode.class
 com/keyfull/modes/Drag.class
