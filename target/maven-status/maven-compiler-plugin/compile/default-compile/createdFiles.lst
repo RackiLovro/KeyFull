@@ -1,0 +1,15 @@
+src/main/java/com/keyfull/Mesh.class
+src/main/java/com/keyfull/Cache.class
+src/main/java/com/keyfull/modes/Click.class
+src/main/java/com/keyfull/adapters/DragMode.class
+src/main/java/com/keyfull/Select.class
+src/main/java/com/keyfull/Parameters.class
+src/main/java/com/keyfull/Mode.class
+src/main/java/com/keyfull/modes/DoubleClick.class
+src/main/java/com/keyfull/Select$1.class
+src/main/java/com/keyfull/Cache$ImageRenderer.class
+src/main/java/com/keyfull/modes/Drag.class
+src/main/java/com/keyfull/adapters/DragCoordinates.class
+src/main/java/com/keyfull/adapters/ClickMode.class
+src/main/java/com/keyfull/Mesh$1.class
+src/main/java/com/keyfull/adapters/DoubleClickMode.class

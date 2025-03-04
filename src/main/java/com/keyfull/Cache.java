@@ -1,4 +1,4 @@
-package navigation;
+package src.main.java.com.keyfull;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

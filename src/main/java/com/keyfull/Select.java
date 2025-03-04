@@ -1,4 +1,4 @@
-package navigation;
+package src.main.java.com.keyfull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static navigation.Parameters.*;
+import static src.main.java.com.keyfull.Parameters.*;
 
 public class Select {
     private static JFrame[] frames;
@@ -130,5 +130,6 @@ public class Select {
         frame.setVisible(true);
         frame.setOpacity(0.5f);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setAlwaysOnTop(true);
     }
 }

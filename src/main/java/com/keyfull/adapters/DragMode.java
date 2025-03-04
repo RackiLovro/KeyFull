@@ -1,9 +1,9 @@
-package navigation.Adapters;
+package src.main.java.com.keyfull.adapters;
 
 import javax.swing.JFrame;
-import navigation.Mesh;
-import navigation.Parameters;
-import navigation.Modes.Drag;
+import src.main.java.com.keyfull.Mesh;
+import src.main.java.com.keyfull.Parameters;
+import src.main.java.com.keyfull.modes.Drag;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

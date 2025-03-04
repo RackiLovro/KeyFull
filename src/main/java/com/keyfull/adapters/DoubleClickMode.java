@@ -1,18 +1,20 @@
-package navigation.Adapters;
+package src.main.java.com.keyfull.adapters;
 
 import javax.swing.JFrame;
-import navigation.Mesh;
-import navigation.Parameters;
-import navigation.Modes.Click;
+
+import src.main.java.com.keyfull.Mesh;
+import src.main.java.com.keyfull.Parameters;
+import src.main.java.com.keyfull.modes.DoubleClick;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class ClickMode extends KeyAdapter {
+public class DoubleClickMode extends KeyAdapter {
     private final JFrame frame;
     private final StringBuilder keySequence = new StringBuilder();
     private Parameters params;
 
-    public ClickMode(JFrame frame, Parameters parameters) {
+    public DoubleClickMode(JFrame frame, Parameters parameters) {
         this.frame = frame;
         this.params = parameters;
     }
@@ -35,10 +37,8 @@ public class ClickMode extends KeyAdapter {
             if (keySequence.length() == 3) {
                 char target = keySequence.charAt(2);
                 keySequence.setLength(0);
-                int frameX = frame.getX();  // Capture frame's X offset
-                int frameY = frame.getY();  // Capture frame's Y offset
                 frame.dispose();
-                Click.click(target, frameX, frameY, this.params);
+                DoubleClick.double_click(target, params);
             }
         }
     }

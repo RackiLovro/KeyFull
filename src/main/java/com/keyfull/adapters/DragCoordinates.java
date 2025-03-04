@@ -1,4 +1,4 @@
-package navigation.Adapters;
+package src.main.java.com.keyfull.adapters;
 
 public class DragCoordinates {
     private int[] start = null;

@@ -1,12 +1,12 @@
-package navigation.Modes;
+package src.main.java.com.keyfull.modes;
 
-import static navigation.Parameters.*;
+import static src.main.java.com.keyfull.Parameters.CELL;
 
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 
-import navigation.Parameters;
+import src.main.java.com.keyfull.Parameters;
 
 public class DoubleClick {
     public static void double_click(char target, Parameters params) {
