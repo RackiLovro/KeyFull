@@ -4,8 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import com.sun.jna.Pointer;
+import com.keyfull.AppKit;
 
 import static com.keyfull.Parameters.*;
 
@@ -123,13 +127,48 @@ public class Select {
         frame.setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
         frame.add(Mesh.get_grid_panel());
         frame.addKeyListener(Mode.getKeyAdapter(args.length > 0 ? args[0] : "click", frame, params));
+        
+        // Call the method to adjust the NSWindow level so that the overlay covers the menu bar
+        setWindowAboveMenuBar(frame);
     }
     
     private static void configure_frame(JFrame frame) {
         frame.setUndecorated(true);
-        frame.setVisible(true);
         frame.setOpacity(0.5f);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setAlwaysOnTop(true);
+        frame.setVisible(true);  // Ensure the frame is visible before adjusting the native level
     }
+    
+    // New method: use reflection to adjust the native NSWindow level via JNA
+    private static void setWindowAboveMenuBar(JFrame frame) {
+        try {
+            // Ensure the native peer is created.
+            if (!frame.isDisplayable()) {
+                frame.addNotify();
+            }
+            // Instead of calling getPeer(), retrieve the private "peer" field.
+            Field peerField = Component.class.getDeclaredField("peer");
+            peerField.setAccessible(true);
+            Object peer = peerField.get(frame);
+            
+            // Now use reflection to call the private "getNSWindow" method on the peer.
+            Method getNSWindowMethod = peer.getClass().getDeclaredMethod("getNSWindow");
+            getNSWindowMethod.setAccessible(true);
+            long nsWindowPtr = (Long) getNSWindowMethod.invoke(peer);
+            Pointer nsWindow = new Pointer(nsWindowPtr);
+
+            // Register the selector for "setLevel:".
+            Pointer selSetLevel = AppKit.INSTANCE.sel_registerName("setLevel:");
+
+            // Adjust the window level to NSStatusWindowLevel so it sits above the menu bar.
+            AppKit.INSTANCE.objc_msgSend(nsWindow, selSetLevel, AppKit.NSStatusWindowLevel);
+
+            System.out.println("Window level adjusted to be above the menu bar.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Failed to adjust the NSWindow level via peer not get peer.");
+        }
+    }
+
 }

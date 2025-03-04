@@ -6,10 +6,12 @@ com/keyfull/Mode.class
 com/keyfull/adapters/DragMode.class
 com/keyfull/modes/Drag.class
 com/keyfull/modes/Click.class
+com/keyfull/AppKit.class
 com/keyfull/adapters/DragCoordinates.class
 com/keyfull/Parameters.class
 com/keyfull/adapters/ClickMode.class
 com/keyfull/Mesh.class
+com/keyfull/TransparentOverlay.class
 com/keyfull/Cache.class
 com/keyfull/Select$1.class
 com/keyfull/Mesh$1.class
