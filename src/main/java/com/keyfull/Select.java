@@ -1,4 +1,4 @@
-package src.main.java.com.keyfull;
+package com.keyfull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static src.main.java.com.keyfull.Parameters.*;
+import static com.keyfull.Parameters.*;
 
 public class Select {
     private static JFrame[] frames;

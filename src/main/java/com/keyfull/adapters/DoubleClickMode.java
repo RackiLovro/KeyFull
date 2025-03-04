@@ -1,10 +1,10 @@
-package src.main.java.com.keyfull.adapters;
+package com.keyfull.adapters;
 
 import javax.swing.JFrame;
 
-import src.main.java.com.keyfull.Mesh;
-import src.main.java.com.keyfull.Parameters;
-import src.main.java.com.keyfull.modes.DoubleClick;
+import com.keyfull.Mesh;
+import com.keyfull.Parameters;
+import com.keyfull.modes.DoubleClick;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

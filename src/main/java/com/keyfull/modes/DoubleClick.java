@@ -1,12 +1,12 @@
-package src.main.java.com.keyfull.modes;
+package com.keyfull.modes;
 
-import static src.main.java.com.keyfull.Parameters.CELL;
+import static com.keyfull.Parameters.CELL;
 
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 
-import src.main.java.com.keyfull.Parameters;
+import com.keyfull.Parameters;
 
 public class DoubleClick {
     public static void double_click(char target, Parameters params) {

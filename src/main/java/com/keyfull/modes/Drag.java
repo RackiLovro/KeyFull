@@ -1,13 +1,13 @@
-package src.main.java.com.keyfull.modes;
+package com.keyfull.modes;
 
-import static src.main.java.com.keyfull.Parameters.CELL;
+import static com.keyfull.Parameters.CELL;
 
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 
-import src.main.java.com.keyfull.Parameters;
-import src.main.java.com.keyfull.adapters.DragCoordinates;  
+import com.keyfull.Parameters;
+import com.keyfull.adapters.DragCoordinates;  
 
 public class Drag {
     public static void drag(DragCoordinates dragCoordinates, Parameters params) {

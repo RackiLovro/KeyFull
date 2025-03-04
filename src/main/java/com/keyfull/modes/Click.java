@@ -1,10 +1,10 @@
-package src.main.java.com.keyfull.modes;
+package com.keyfull.modes;
 
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
-import src.main.java.com.keyfull.Parameters;
-import static src.main.java.com.keyfull.Parameters.CELL;
+import com.keyfull.Parameters;
+import static com.keyfull.Parameters.CELL;
 
 public class Click {
     public static void click(char target, int offsetX, int offsetY, Parameters params) {

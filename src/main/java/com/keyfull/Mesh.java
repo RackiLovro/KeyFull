@@ -1,4 +1,4 @@
-package src.main.java.com.keyfull;
+package com.keyfull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +6,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import static src.main.java.com.keyfull.Parameters.*;
+import static com.keyfull.Parameters.*;
 
 public class Mesh {
     private static JPanel gridPanel;

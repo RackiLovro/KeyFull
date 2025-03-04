@@ -1,10 +1,10 @@
-package src.main.java.com.keyfull;
+package com.keyfull;
 
 import javax.swing.JFrame;
 
-import src.main.java.com.keyfull.adapters.ClickMode;
-import src.main.java.com.keyfull.adapters.DoubleClickMode;
-import src.main.java.com.keyfull.adapters.DragMode;
+import com.keyfull.adapters.ClickMode;
+import com.keyfull.adapters.DoubleClickMode;
+import com.keyfull.adapters.DragMode;
 
 import java.awt.event.KeyAdapter;
 

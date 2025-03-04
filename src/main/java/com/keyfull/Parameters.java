@@ -1,4 +1,4 @@
-package src.main.java.com.keyfull;
+package com.keyfull;
 
 import java.awt.*;
 import java.util.List;
