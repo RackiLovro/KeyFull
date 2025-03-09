@@ -1,10 +1,15 @@
+MacOverlayWindow$Dispatch.class
+MacOverlayWindow.class
 com/keyfull/Select.class
+MacOverlayWindow$1.class
 com/keyfull/modes/DoubleClick.class
 com/keyfull/adapters/DoubleClickMode.class
 com/keyfull/X11OverlayUtil.class
 com/keyfull/Mode.class
 com/keyfull/adapters/DragMode.class
+MacOverlayWindow$DispatchBlock.class
 com/keyfull/modes/Drag.class
+MacOverlayWindow$Foundation.class
 com/keyfull/modes/Click.class
 com/keyfull/AppKit.class
 com/keyfull/adapters/DragCoordinates.class

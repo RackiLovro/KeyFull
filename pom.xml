@@ -12,22 +12,18 @@
     <name>KeyFull</name>
     <description>KeyFull Project</description>
 
-    <dependencies>
-        <!-- Add your dependencies here -->
-        <!-- JNA Core -->
-        <dependency>
-            <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna</artifactId>
-            <version>5.12.1</version>
-        </dependency>
-
-        <!-- JNA Platform -->
-        <dependency>
-            <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna-platform</artifactId>
-            <version>5.12.1</version>
-        </dependency>
-    </dependencies>
+	<dependencies>
+	    <dependency>
+	        <groupId>net.java.dev.jna</groupId>
+	        <artifactId>jna</artifactId>
+	        <version>5.13.0</version>  <!-- Ensure it's the latest version -->
+	    </dependency>
+	    <dependency>
+	        <groupId>net.java.dev.jna</groupId>
+	        <artifactId>jna-platform</artifactId>
+	        <version>5.13.0</version>  <!-- Must match jna version -->
+	    </dependency>
+	</dependencies>
 
     <build>
       <plugins>
