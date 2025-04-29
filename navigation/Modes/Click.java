@@ -1,27 +1,32 @@
 package navigation.Modes;
 
 import static navigation.Parameters.*;
-
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 
+import navigation.Parameters;
+
 public class Click {
-	public static void click(char target) {
+    public static void click(char target, int offsetX, int offsetY, Parameters params) {
         try {
-	        double x = highlight_width();
-	        double y = highlight_height() - SUB_SQUARE_HEIGHT * 2 + SQUARE_HEIGHT * 0.95;
-	        
-    		for (String row : CELL) {
-    			if (row.indexOf(target) != -1) {
-    		       x += row.indexOf(target) * SUB_SQUARE_WIDTH + SUB_SQUARE_WIDTH / 2;
-    		       y += CELL.indexOf(row) * SUB_SQUARE_HEIGHT + SUB_SQUARE_HEIGHT / 2;
-    			}
-    		}
-    		
+            double x = params.highlight_width();
+            double y = params.highlight_height() - params.SUB_SQUARE_HEIGHT * 2 + params.SQUARE_HEIGHT * 0.95;
+
+            for (String row : CELL) {
+                if (row.indexOf(target) != -1) {
+                    x += row.indexOf(target) * params.SUB_SQUARE_WIDTH;
+                    y += CELL.indexOf(row) * params.SUB_SQUARE_HEIGHT;
+                }
+            }
+
+            // Adjust for multi-monitor setup
+            x += offsetX + params.SUB_SQUARE_WIDTH / 2;
+            y += offsetY - params.SUB_SQUARE_HEIGHT / 2;
+
             // Create a Robot instance
             Robot robot = new Robot();
-            
+
             // Move the mouse to the calculated coordinates
             robot.mouseMove((int) x, (int) y);
             robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
@@ -29,5 +34,5 @@ public class Click {
         } catch (AWTException e) {
             e.printStackTrace();
         }
-	}
+    }
 }
